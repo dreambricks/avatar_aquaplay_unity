@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class Nation : MonoBehaviour
 {
-    public string nation;
+    public string nationName;
 }
