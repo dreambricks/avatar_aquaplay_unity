@@ -23,7 +23,7 @@ public class NationPick : MonoBehaviour
             }
             
             images[i].gameObject.GetComponent<BoxCollider2D>().isTrigger = true;
-            images[i].gameObject.GetComponent<BoxCollider2D>().size = new Vector2(images[i].rectTransform.rect.width, images[i].rectTransform.rect.height);
+            //images[i].gameObject.GetComponent<BoxCollider2D>().size = new Vector2(images[i].rectTransform.rect.width, images[i].rectTransform.rect.height);
             images[i].gameObject.AddComponent<ClickHandler>().OnClicked += () => OnImageClicked(index);
         }
     }

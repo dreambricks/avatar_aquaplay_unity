@@ -1,6 +1,8 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Globalization;
 
 public class Points : MonoBehaviour
 {
@@ -24,10 +26,12 @@ public class Points : MonoBehaviour
 
     public string selectedNation;
 
-    public int points;
+	CultureInfo cultura = new CultureInfo("pt-BR");
+    public int points = 0;
     public int multiplier = 1;
 
-    public Text pointText;
+
+    public TextMeshProUGUI pointText;
 
     private void Awake()
     {
@@ -88,7 +92,7 @@ public class Points : MonoBehaviour
     {
         Countdown();
         SetPoints();
-        pointText.text = points.ToString() + "pts";
+        pointText.text = points.ToString("#,0", cultura) + " pontos";
     }
 
     public void Countdown()
