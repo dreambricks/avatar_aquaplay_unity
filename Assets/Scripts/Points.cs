@@ -18,7 +18,7 @@ public class Points : MonoBehaviour
     private float currentTime;
     public string lastSensor;
 
-    [SerializeField] private ArduinoCommunicationReceiver arduinoCommunicationReceiver;
+    //[SerializeField] private ArduinoCommunicationReceiver arduinoCommunicationReceiver;
 
     public SerializableDictionary<string, string> nationSensors = new();
 
@@ -113,30 +113,30 @@ public class Points : MonoBehaviour
     public void SetPoints()
     {
        
-        string data = arduinoCommunicationReceiver.GetLastestData();
+        //string data = arduinoCommunicationReceiver.GetLastestData();
 
-        if (lastSensor != data)
-        {
-            if (data == selectedNation)
-            {
-                points += 50 * multiplier;
-                multiplier = 1;
-                lastSensor = data;
-            }
-            else if (nationSensors.ContainsKey(data))
-            {
-                points += 10 * multiplier;
-                multiplier = 1;
-                lastSensor = data;
-            }
+        //if (lastSensor != data)
+        //{
+        //    if (data == selectedNation)
+        //    {
+        //        points += 50 * multiplier;
+        //        multiplier = 1;
+        //        lastSensor = data;
+        //    }
+        //    else if (nationSensors.ContainsKey(data))
+        //    {
+        //        points += 10 * multiplier;
+        //        multiplier = 1;
+        //        lastSensor = data;
+        //    }
 
-            if (multiplySensor.ContainsKey(data))
-            {
-                multiplier *= multiplySensor[data];
-                lastSensor = data;
+        //    if (multiplySensor.ContainsKey(data))
+        //    {
+        //        multiplier *= multiplySensor[data];
+        //        lastSensor = data;
 
-            }
-        }
+        //    }
+        //}
 
     }
 
