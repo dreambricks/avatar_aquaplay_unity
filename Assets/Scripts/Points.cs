@@ -103,6 +103,11 @@ public class Points : MonoBehaviour
         if (currentTime <= 0)
         {
             currentTime = 0;
+            DataLog dataLog = new();
+            dataLog.status = StatusEnum.Jogou.ToString();
+            dataLog.score = points.ToString();
+            dataLog.nation = nation.nationName;
+            LogUtil.SendLogCSV(dataLog);
 
             qrcode.gameObject.SetActive(true);
             gameObject.SetActive(false);

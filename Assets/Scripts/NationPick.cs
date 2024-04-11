@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class NationPick : MonoBehaviour
@@ -9,22 +10,48 @@ public class NationPick : MonoBehaviour
 
     public Image[] images;
     private int selectedImageIndex = -1; 
-    public float fadeDuration = 0.5f; 
+    public float fadeDuration = 0.5f;
 
-    void Start()
+    public float totalTime;
+    private float currentTime;
+
+    private void OnEnable()
     {
-        
+        currentTime = totalTime;
+
         for (int i = 0; i < images.Length; i++)
         {
-            int index = i; 
+            int index = i;
             if (!images[i].gameObject.GetComponent<BoxCollider2D>())
             {
                 images[i].gameObject.AddComponent<BoxCollider2D>();
             }
-            
+
             images[i].gameObject.GetComponent<BoxCollider2D>().isTrigger = true;
             //images[i].gameObject.GetComponent<BoxCollider2D>().size = new Vector2(images[i].rectTransform.rect.width, images[i].rectTransform.rect.height);
             images[i].gameObject.AddComponent<ClickHandler>().OnClicked += () => OnImageClicked(index);
+        }
+    }
+
+    private void Update()
+    {
+        Countdown();
+    }
+
+    public void Countdown()
+    {
+        currentTime -= Time.deltaTime;
+
+
+        if (currentTime <= 0)
+        {
+            currentTime = 0;
+
+            DataLog dataLog = new();
+            dataLog.status = StatusEnum.NaoJogou.ToString();
+            LogUtil.SendLogCSV(dataLog);
+
+            SceneManager.LoadScene("SampleScene");
         }
     }
 

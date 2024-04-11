@@ -1563,6 +1563,7 @@ MonoBehaviour:
   - {fileID: 1737750265}
   - {fileID: 60371607}
   fadeDuration: 0.2
+  totalTime: 5
 --- !u!1 &1705066627
 GameObject:
   m_ObjectHideFlags: 0
