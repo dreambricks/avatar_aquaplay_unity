@@ -5,7 +5,7 @@ using System;
 using System.IO;
 using UnityEngine.Windows;
 
-public class ArduinoCommunicationReceiver : MonoBehaviour
+public class ArduinoCommunication : MonoBehaviour
 {
     public SerialPort serialPort;
     Thread receiverThread;
@@ -94,6 +94,19 @@ public class ArduinoCommunicationReceiver : MonoBehaviour
         //        return "";
         //
         return GetLastestData();
+    }
+
+    public void SendMessageToArduino(string message)
+    {
+        if (serialPort.IsOpen)
+        {
+            serialPort.WriteLine(message); 
+            Debug.Log("Sent to Arduino: " + message);
+        }
+        else
+        {
+            Debug.LogWarning("Serial port is not open!");
+        }
     }
 
     void OnApplicationQuit()

@@ -18,7 +18,7 @@ public class Points : MonoBehaviour
     private float currentTime;
     public string lastSensor;
 
-    //[SerializeField] private ArduinoCommunicationReceiver arduinoCommunicationReceiver;
+    //[SerializeField] private ArduinoCommunication arduinoCommunication;
 
     public SerializableDictionary<string, string> nationSensors = new();
 
@@ -56,7 +56,9 @@ public class Points : MonoBehaviour
 
     private void OnEnable()
     {
-        
+
+        // arduinoCommunication.SendMessageToArduino("play");
+
         currentTime = totalTime;
 
         airPointsPanel.SetActive(false);
@@ -103,6 +105,9 @@ public class Points : MonoBehaviour
         if (currentTime <= 0)
         {
             currentTime = 0;
+
+            // arduinoCommunication.SendMessageToArduino("stop");
+
             DataLog dataLog = new();
             dataLog.status = StatusEnum.Jogou.ToString();
             dataLog.score = points.ToString();
@@ -118,7 +123,7 @@ public class Points : MonoBehaviour
     public void SetPoints()
     {
        
-        //string data = arduinoCommunicationReceiver.GetLastestData();
+        //string data = arduinoCommunication.GetLastestData();
 
         //if (lastSensor != data)
         //{
