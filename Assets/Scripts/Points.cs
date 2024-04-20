@@ -3,6 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Globalization;
+using System.Collections;
 
 public class Points : MonoBehaviour
 {
@@ -14,11 +15,13 @@ public class Points : MonoBehaviour
     [SerializeField] private Nation nation;
     [SerializeField] private GameObject qrcode;
 
+
+    public Queue<int> valueQueue = new Queue<int>();
     public float totalTime;
     private float currentTime;
     public string lastSensor;
 
-    //[SerializeField] private ArduinoCommunication arduinoCommunication;
+    [SerializeField] private ArduinoCommunication arduinoCommunication;
 
     public SerializableDictionary<string, string> nationSensors = new();
 
@@ -57,7 +60,8 @@ public class Points : MonoBehaviour
     private void OnEnable()
     {
 
-        // arduinoCommunication.SendMessageToArduino("play");
+        arduinoCommunication.SendMessageToArduino("play");
+
 
         currentTime = totalTime;
 
@@ -106,7 +110,7 @@ public class Points : MonoBehaviour
         {
             currentTime = 0;
 
-            // arduinoCommunication.SendMessageToArduino("stop");
+            arduinoCommunication.SendMessageToArduino("stop");
 
             DataLog dataLog = new();
             dataLog.status = StatusEnum.Jogou.ToString();
@@ -120,34 +124,62 @@ public class Points : MonoBehaviour
     }
 
 
-    public void SetPoints()
+    private void SetPoints()
     {
-       
+       // string data = arduinoCommunication.GetLastestData();
+       // if (data == "lpressed" || data == "rpressed")
+        if (Input.GetKeyDown(KeyCode.R) || Input.GetKeyDown(KeyCode.L))
+        {
+            // Add a random value to the queue
+            valueQueue.Enqueue(Random.Range(0, 4));
+            Debug.Log(valueQueue);
+
+            // If the queue has between 2 and 4 elements, start the emptying process
+            if (valueQueue.Count >= 2 && valueQueue.Count <= 4)
+            {
+                StartCoroutine(EmptyQueue());
+            }
+        }
+
         //string data = arduinoCommunication.GetLastestData();
 
-        //if (lastSensor != data)
-        //{
-        //    if (data == selectedNation)
-        //    {
-        //        points += 50 * multiplier;
-        //        multiplier = 1;
-        //        lastSensor = data;
-        //    }
-        //    else if (nationSensors.ContainsKey(data))
-        //    {
-        //        points += 10 * multiplier;
-        //        multiplier = 1;
-        //        lastSensor = data;
-        //    }
+        /*if (lastSensor != data)
+        {
+            if (data == selectedNation)
+            {
+                points += 50 * multiplier;
+                multiplier = 1;
+                lastSensor = data;
+            }
+            else if (nationSensors.ContainsKey(data))
+            {
+                points += 10 * multiplier;
+                multiplier = 1;
+                lastSensor = data;
+            }
 
-        //    if (multiplySensor.ContainsKey(data))
-        //    {
-        //        multiplier *= multiplySensor[data];
-        //        lastSensor = data;
+            if (multiplySensor.ContainsKey(data))
+            {
+                multiplier *= multiplySensor[data];
+                lastSensor = data;
 
-        //    }
-        //}
+            }
+        }*/
 
+    }
+
+    IEnumerator EmptyQueue()
+    {
+        // Wait for a random delay between 2 and 5 seconds
+        yield return new WaitForSeconds(Random.Range(2, 6));
+
+        // Empty the queue and add the values to points
+        while (valueQueue.Count > 0)
+        {
+            points += valueQueue.Dequeue() * 10;
+        }
+
+        Debug.Log("Updated points: " + points);
     }
 
     public static string FindKeyByValue(Dictionary<string, string> dictionary, string value)

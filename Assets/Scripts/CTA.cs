@@ -6,9 +6,10 @@ public class CTA : MonoBehaviour
 {
 
     [SerializeField] private GameObject nationPick;
+    [SerializeField] private GameObject cta;
     private void OnMouseDown()
     {
         nationPick.gameObject.SetActive(true);
-        gameObject.gameObject.SetActive(false);
+        cta.gameObject.SetActive(false);
     }
 }

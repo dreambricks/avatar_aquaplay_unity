@@ -10,6 +10,8 @@ public class QRCode : MonoBehaviour
 
     [SerializeField] private Nation nation;
     [SerializeField] private Points points;
+    [SerializeField] private GameObject cta;
+    [SerializeField] private GameObject qrcode;
 
     public float totalTime;
     private float currentTime;
@@ -37,7 +39,10 @@ public class QRCode : MonoBehaviour
         {
             currentTime = 0;
 
-            SceneManager.LoadScene("SampleScene");
+            points.points = 0;
+            nation.nationName = "";
+            cta.gameObject.SetActive(true);
+            qrcode.gameObject.SetActive(false);
         }
     }
 

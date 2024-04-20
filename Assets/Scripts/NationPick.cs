@@ -1,15 +1,18 @@
+using System;
 using System.Collections;
+using System.Reflection;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class NationPick : MonoBehaviour
 {
     [SerializeField] Nation nation;
     [SerializeField] GameObject points;
+    [SerializeField] GameObject cta;
+    [SerializeField] GameObject nationPick;
 
     public Image[] images;
-    private int selectedImageIndex = -1; 
+    public int selectedImageIndex = -1; 
     public float fadeDuration = 0.5f;
 
     public float totalTime;
@@ -51,7 +54,10 @@ public class NationPick : MonoBehaviour
             dataLog.status = StatusEnum.NaoJogou.ToString();
             LogUtil.SendLogCSV(dataLog);
 
-            SceneManager.LoadScene("SampleScene");
+
+            ClearSelection();
+            cta.gameObject.SetActive(true);
+            nationPick.gameObject.SetActive(false);
         }
     }
 
@@ -81,12 +87,33 @@ public class NationPick : MonoBehaviour
         
         selectedImageIndex = newIndex;
 
-        
+
         if (selectedImageIndex >= 0 && selectedImageIndex < images.Length)
         {
             
             StartCoroutine(FadeCanvasGroup(images[selectedImageIndex].GetComponent<CanvasGroup>(), 1f));
         }
+
+    }
+
+    void ClearSelection()
+    {
+        selectedImageIndex = -1;
+
+        foreach (var image in images)
+        {
+            image.GetComponent<CanvasGroup>().alpha = 0;
+
+            ClickHandler clickHandler = image.gameObject.GetComponent<ClickHandler>();
+
+            // Verifique se o componente existe antes de tentar removê-lo.
+            if (clickHandler != null)
+            {
+                // Remova o componente ClickHandler do objeto.
+                Destroy(clickHandler);
+            }
+        }
+
     }
 
     IEnumerator FadeCanvasGroup(CanvasGroup canvasGroup, float targetAlpha)
@@ -108,7 +135,8 @@ public class NationPick : MonoBehaviour
     {
         nation.nationName = images[index].name;
         points.gameObject.SetActive(true);
-        gameObject.SetActive(false);
+        ClearSelection();
+        nationPick.gameObject.SetActive(false);
 
     }
 }

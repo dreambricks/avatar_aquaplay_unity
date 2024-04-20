@@ -491,7 +491,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &249308947
 RectTransform:
   m_ObjectHideFlags: 0
@@ -535,8 +535,9 @@ MonoBehaviour:
   earthPointsPanel: {fileID: 167080348}
   nation: {fileID: 1531603683}
   qrcode: {fileID: 1705066627}
-  totalTime: 5
+  totalTime: 60
   lastSensor: 
+  arduinoCommunication: {fileID: 1998834357}
   nationSensors:
     keys: []
     values: []
@@ -639,6 +640,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nation: {fileID: 1531603683}
   points: {fileID: 249308948}
+  cta: {fileID: 1829551257}
+  qrcode: {fileID: 1705066627}
   totalTime: 30
   image: {fileID: 507862177}
 --- !u!1 &362572667
@@ -1557,13 +1560,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nation: {fileID: 1531603683}
   points: {fileID: 249308946}
+  cta: {fileID: 1829551257}
+  nationPick: {fileID: 1555217130}
   images:
   - {fileID: 1388813488}
   - {fileID: 1151868802}
   - {fileID: 1737750265}
   - {fileID: 60371607}
+  selectedImageIndex: -1
   fadeDuration: 0.2
-  totalTime: 5
+  totalTime: 30
 --- !u!1 &1705066627
 GameObject:
   m_ObjectHideFlags: 0
@@ -1871,6 +1877,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nationPick: {fileID: 1555217130}
+  cta: {fileID: 1829551257}
 --- !u!1 &1998834356
 GameObject:
   m_ObjectHideFlags: 0
@@ -1887,7 +1894,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1998834357
 MonoBehaviour:
   m_ObjectHideFlags: 0

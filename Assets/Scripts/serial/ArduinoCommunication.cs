@@ -31,7 +31,10 @@ public class ArduinoCommunication : MonoBehaviour
         }
         
         serialPort = new SerialPort(port, baudrate);
-        serialPort.Open();
+        if (!serialPort.IsOpen)
+        {
+            serialPort.Open();
+        }
 
         myQueue = new LockFreeQueue<string>();
         receiverThread = new Thread(
@@ -100,7 +103,7 @@ public class ArduinoCommunication : MonoBehaviour
     {
         if (serialPort.IsOpen)
         {
-            serialPort.WriteLine(message); 
+            serialPort.Write(message); 
             Debug.Log("Sent to Arduino: " + message);
         }
         else
@@ -110,6 +113,22 @@ public class ArduinoCommunication : MonoBehaviour
     }
 
     void OnApplicationQuit()
+    {
+        if (serialPort != null && serialPort.IsOpen)
+        {
+            serialPort.Close();
+        }
+    }
+
+    private void OnDisable()
+    {
+        if (serialPort != null && serialPort.IsOpen)
+        {
+            serialPort.Close();
+        }
+    }
+
+    private void OnDestroy()
     {
         if (serialPort != null && serialPort.IsOpen)
         {
