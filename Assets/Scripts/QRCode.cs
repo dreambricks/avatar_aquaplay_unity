@@ -20,7 +20,9 @@ public class QRCode : MonoBehaviour
 
     private void OnEnable()
     {
+        Debug.Log(points.points);
         currentTime = totalTime;
+        image.sprite= null;
   
     }
 

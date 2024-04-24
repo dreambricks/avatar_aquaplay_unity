@@ -536,17 +536,7 @@ MonoBehaviour:
   nation: {fileID: 1531603683}
   qrcode: {fileID: 1705066627}
   totalTime: 60
-  lastSensor: 
-  arduinoCommunication: {fileID: 1998834357}
-  nationSensors:
-    keys: []
-    values: []
-  multiplySensor:
-    keys: []
-    values: 
-  selectedNation: 
   points: 0
-  multiplier: 1
   pointText: {fileID: 433481533}
 --- !u!1 &288664734
 GameObject:
@@ -1894,7 +1884,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1998834357
 MonoBehaviour:
   m_ObjectHideFlags: 0
